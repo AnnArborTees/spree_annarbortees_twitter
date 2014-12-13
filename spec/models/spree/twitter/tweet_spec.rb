@@ -30,7 +30,7 @@ describe Spree::Twitter::Tweet do
   context '#markups_and_positions' do 
     let(:tweet) { create(:tweet_with_hashtags) }
     it 'creates an array of where markup is going to need to go' do
-      expect(tweet.markups_and_positions.first).to eq({val: '</a>', pos: 139 })
+      expect(tweet.markups_and_positions.first).to eq({val: '</a>', pos: 1 })
       expect(tweet.markups_and_positions.last).to eq({val: "<a href='http://twitter.com/search?q=%23CyberMonday' class='hashtag-link'>", pos: 0})
       expect(tweet.markups_and_positions).to include({val: "<a href='http://twitter.com/annarbortees' class='mention-link'>", pos: 37 })
       expect(tweet.markups_and_positions).to include({val: "<a href='http://t.co/NnrEauRWgc' class='twitter-url'>", pos: 117 })

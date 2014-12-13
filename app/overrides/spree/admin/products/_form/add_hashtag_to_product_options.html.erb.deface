@@ -1,0 +1,9 @@
+<!-- insert_after "[data-hook='admin_product_form_description'], #admin_product_form_description[data-hook]" -->
+
+    <div data-hook="admin_product_hashtag">
+      <%= f.field_container :hashtag do %>
+        <%= f.label :hashtag, raw(Spree.t(:hashtag)) %>
+        <%= f.text_field :hashtag, :class => 'fullwidth title', :required => true %>
+        <%= f.error_message_on :hashtag %>
+      <% end %>
+    </div>

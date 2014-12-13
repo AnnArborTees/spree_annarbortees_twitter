@@ -7,19 +7,23 @@ module Spree
         foreign_key: :spree_twitter_tweet_id 
 
       after_create :populate_hashtags
+      serialize :attrs, Hash
 
       def user
-        attrs_hash = eval(attrs)
         OpenStruct.new attrs_hash[:user] 
       end
 
       def medias
-        attrs_hash = eval(attrs)
         attrs_hash[:entities][:media].map{ |x| OpenStruct.new(x) }
       end
 
+      def text
+        attrs_hash[:text]
+      end
+
+      def fulltext; text end
+
       def urls
-        attrs_hash = eval(attrs)
         obj = []
 
         attrs_hash[:entities][:urls].each do |url|
@@ -32,7 +36,6 @@ module Spree
       end
 
       def markups_and_positions
-        attrs_hash = eval(attrs)
         obj = []
         
         attrs_hash[:entities][:hashtags].each do |hashtag|
@@ -45,7 +48,7 @@ module Spree
             val: self.class.url_hashtag_start(hashtag[:text]),
             pos: hashtag[:indices][0]
           }
-        end
+        end unless attrs_hash[:entities][:hashtags].nil?
 
         attrs_hash[:entities][:user_mentions].each do |user_mentions|
           obj << {
@@ -57,7 +60,7 @@ module Spree
             val: self.class.url_mention_start(user_mentions[:screen_name]),
             pos: user_mentions[:indices][0]
           }
-        end
+        end unless attrs_hash[:entities][:user_mentions].nil?
 
         attrs_hash[:entities][:urls].each do |url|
           obj << {
@@ -69,7 +72,7 @@ module Spree
             val: self.class.url_start(url[:url]),
             pos: url[:indices][0]
           }
-        end
+        end unless attrs_hash[:entities][:urls].nil?
 
          attrs_hash[:entities][:media].each do |media|
           obj << {
@@ -81,7 +84,7 @@ module Spree
             val: self.class.url_start(media[:expanded_url]),
             pos: media[:indices][0]
           }
-        end
+        end unless attrs_hash[:entities][:media].nil?
 
         obj.sort{|x,y| y[:pos] <=> x[:pos]}
       end
@@ -97,26 +100,32 @@ module Spree
       end
 
       def favorite_count
-        attrs_hash = eval(attrs)
         attrs_hash[:favorite_count]
       end
       
       def self.url_hashtag_start(tag)
-        "<a href='http://twitter.com/search?q=%23#{tag}' class='hashtag-link'>"
+        "<a href='http://twitter.com/search?q=%23#{tag}' class='hashtag-link' target='_blank'>"
       end
 
       def self.url_start(url)
-        "<a href='#{url}' class='twitter-url'>"
+        "<a href='http://#{url}' class='twitter-url' target='_blank'>"
       end
 
       def self.url_mention_start(screen_name)
-        "<a href='http://twitter.com/#{screen_name}' class='mention-link'>"
+        "<a href='http://twitter.com/#{screen_name}' class='mention-link' target='_blank'>"
       end
 
       private 
 
+      def attrs_hash
+        if attrs.class == String
+          return eval(attrs)
+        elsif attrs.class == Hash
+          return attrs
+        end
+      end
+
       def populate_hashtags
-        attrs_hash = eval(attrs)
         attrs_hash[:entities][:hashtags].each do |hashtag|
           hashtag = Spree::Twitter::Hashtag.find_or_create_by(value: hashtag[:text])
           hashtags << hashtag unless hashtags.include? hashtag

@@ -1,10 +1,10 @@
-media_tweet_attrs = %( {:created_at=>"Tue Dec 09 15:42:25 +0000 2014",
+media_tweet_attrs = {:created_at=>"Tue Dec 09 15:42:25 +0000 2014",
  :id=>542343519009275904,
  :id_str=>"542343519009275904",
  :text=>
   "Cute and Funny Onesies, Baby Tees, and Bibs make perfect Christmas Gifts! Get Yours Here! http://t.co/3174KhMikf http://t.co/gjdK05Ybjp",
  :source=>
-  "<a href=\\"https://about.twitter.com/products/tweetdeck\\" rel=\\"nofollow\\">TweetDeck</a>",
+  "<a href='https://about.twitter.com/products/tweetdeck' rel='nofollow'>TweetDeck</a>",
  :truncated=>false,
  :in_reply_to_status_id=>nil,
  :in_reply_to_status_id_str=>nil,
@@ -118,16 +118,15 @@ media_tweet_attrs = %( {:created_at=>"Tue Dec 09 15:42:25 +0000 2014",
  :retweeted=>false,
  :possibly_sensitive=>false,
  :lang=>"en"}
-)
 
-hashtag_tweet_attrs  = %(
+hashtag_tweet_attrs  = 
   {:created_at=>"Mon Dec 01 21:19:19 +0000 2014",
  :id=>539529197064970240,
  :id_str=>"539529197064970240",
  :text=>
   "#CyberMonday\nBuy $50 of goodies from @annarbortees &amp; get the #JMOMS Digital Download FREE! That's just 1 hoodie!\nhttp://t.co/NnrEauRWgc",
  :source=>
-  "<a href=\\"http://twitter.com\\" rel=\\"nofollow\">Twitter Web Client</a>",
+  "<a href='http://twitter.com' rel='nofollow'>Twitter Web Client</a>",
  :truncated=>false,
  :in_reply_to_status_id=>nil,
  :in_reply_to_status_id_str=>nil,
@@ -225,29 +224,29 @@ hashtag_tweet_attrs  = %(
  :retweeted=>true,
  :possibly_sensitive=>false,
  :lang=>"en"}
-)
+
 
 
 FactoryGirl.define do
 
   factory :tweet, class: Spree::Twitter::Tweet do 
-    id_string 542343519009275904
+    id 542343519009275904
     in_reply_to_screen_name nil
     in_reply_to_status_id nil
     in_reply_to_user_id nil
     lang 'en'
     retweet_count 2
-    source "<a href=\"https://about.twitter.com/products/tweetdeck\" rel=\"nofollow\">TweetDeck</a>" 
-    text "Cute and Funny Onesies, Baby Tees, and Bibs make perfect Christmas Gifts! Get Yours Here! http://t.co/3174KhMikf http://t.co/gjdK05Ybjp"
-    full_text "Cute and Funny Onesies, Baby Tees, and Bibs make perfect Christmas Gifts! Get Yours Here! http://t.co/3174KhMikf http://t.co/gjdK05Ybjp"
+    source "<a href='https://about.twitter.com/products/tweetdeck' rel='nofollow'>TweetDeck</a>" 
+    # text "Cute and Funny Onesies, Baby Tees, and Bibs make perfect Christmas Gifts! Get Yours Here! http://t.co/3174KhMikf http://t.co/gjdK05Ybjp"
+    # full_text "Cute and Funny Onesies, Baby Tees, and Bibs make perfect Christmas Gifts! Get Yours Here! http://t.co/3174KhMikf http://t.co/gjdK05Ybjp"
     url "https://twitter.com/annarbortees/status/542343519009275904"
     
     factory :tweet_with_media do 
-      attrs media_tweet_attrs
+      attrs media_tweet_attrs.to_s 
     end
 
     factory :tweet_with_hashtags do 
-      attrs hashtag_tweet_attrs   
+      attrs hashtag_tweet_attrs.to_s  
     end
     
   end

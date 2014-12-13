@@ -1,4 +1,18 @@
 --------------------------------------------------------------------------------
+The semantics of `RSpec::Core::ExampleGroup.pending` are changing in RSpec 3.
+In RSpec 2.x, it caused the example to be skipped. In RSpec 3, the example will
+still be run but is expected to fail, and will be marked as a failure (rather
+than as pending) if the example passes, just like how `pending` with a block
+from within an example already works.
+
+To keep the same skip semantics, change `pending` to `skip`.  Otherwise, if you
+want the new RSpec 3 behavior, you can safely ignore this warning and continue
+to upgrade to RSpec 3 without addressing it.
+
+Called from /Users/Ricky/RailsApp/spree_annarbortees_twitter/spec/models/spree/twitter/hashtag_spec.rb:4:in `block in <top (required)>'.
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 rspec-rails 3 will no longer automatically infer an example group's spec type
 from the file location. You can explicitly opt-in to this feature using this
 snippet:
