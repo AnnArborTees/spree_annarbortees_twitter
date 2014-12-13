@@ -14,7 +14,8 @@ module Spree
       end
 
       def medias
-        attrs_hash[:entities][:media].map{ |x| OpenStruct.new(x) }
+        return [] if attrs_hash[:entities][:media].nil?
+        attrs_hash[:entities][:media].map{ |x| OpenStruct.new(x) } unless attrs_hash[:entities][:media].nil?
       end
 
       def text
@@ -99,7 +100,7 @@ module Spree
         end
       end
 
-      def favorite_count
+      def favorite_count 
         attrs_hash[:favorite_count]
       end
       
