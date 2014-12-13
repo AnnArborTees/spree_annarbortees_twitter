@@ -1,3 +1,5 @@
+
+<% unless @product.tweets.empty? %>
 <div class='twitter-feed'>
 <ul>
 <% @product.tweets.each do |tweet| %>
@@ -32,3 +34,4 @@
 <% end %>
 </ul>
 </div>
+<% end %>
