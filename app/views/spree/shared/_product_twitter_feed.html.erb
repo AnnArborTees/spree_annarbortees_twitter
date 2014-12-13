@@ -1,24 +1,33 @@
 <div class='twitter-feed'>
 <ul>
-<% @product.tweets.each do %>
+<% @product.tweets.each do |tweet| %>
     <li class='tweet clearfix clear container'>
       <div class='avatar col-xs-3'>
-        <img src="https://pbs.twimg.com/profile_images/732739000/new_logo_medium_normal.gif">
+        <img src="<%=tweet.user.profile_image_url %>">
       </div>
       <div class='tweet-content col-xs-9'>
         <div class='tweet-header'>
-          <span class='name'><%= tweet.user.name %></span> <span class='nickname'>@<%= tweet.user.screen_name %></span> <!-- 26m -->
+        <%= link_to "http://twitter.com/#{tweet.user.screen_name}" do %>
+          <span class='name'><%= tweet.user.name %></span> <span class='nickname'>@<%= tweet.user.screen_name %></span>
+        <% end %>
+          <!-- 26m -->
         </div>
           <p>
-            <%= format_tweet(tweet) %>
+            <%=  format_tweet(tweet).html_safe %>
           </p>
-          <div class='tweet-images text-center'>
-
-          </div>
+          <% unless tweet.medias.empty? %>
+            <ul class='tweet-images text-center'>
+              <% tweet.medias.each do |media| %>
+                <li><%= link_to image_tag("#{media.media_url}:thumb"),  media.url, target: '_blank' %></li>
+              <% end %>
+            </ul>
+          <% end %>
         <div class='tweet-footer text-right'>
-          <i class='glyphicon glyphicon-retweet'></i> 123  <i class='glyphicon glyphicon-star'></i> 5  
+          <i class='glyphicon glyphicon-retweet'></i> <%= tweet.retweet_count %>  
+          <i class='glyphicon glyphicon-star'></i> <%= tweet.favorite_count %>  
         </div>
       </div>
+      
     </li>
 <% end %>
 </ul>

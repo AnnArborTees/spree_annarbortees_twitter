@@ -7,11 +7,12 @@ class CreateSpreeTwitterTweets < ActiveRecord::Migration
       t.string :lang
       t.integer :retweet_count
       t.text :source
-      t.text :text
       t.text :attrs
-      t.text :full_text
       t.text :url
       t.timestamps
     end
+    
+    add_column :spree_twitter_tweets, :tweet_id, 'BIGINT UNSIGNED'
+    add_index :spree_twitter_tweets, :tweet_id
   end
 end
