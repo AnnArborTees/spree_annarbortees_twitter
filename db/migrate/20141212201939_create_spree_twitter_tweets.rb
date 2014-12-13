@@ -6,11 +6,11 @@ class CreateSpreeTwitterTweets < ActiveRecord::Migration
       t.integer :in_reply_to_user_id
       t.string :lang
       t.integer :retweet_count
-      t.string :source
+      t.text :source
       t.text :text
       t.text :attrs
-      t.string :full_text
-      t.string :url
+      t.text :full_text
+      t.text :url
       t.timestamps
     end
   end

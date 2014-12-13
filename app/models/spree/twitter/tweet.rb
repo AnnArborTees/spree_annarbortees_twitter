@@ -95,6 +95,11 @@ module Spree
           config.access_token_secret = @twitter_config.access_token_secret
         end
       end
+
+      def favorite_count
+        attrs_hash = eval(attrs)
+        attrs_hash[:favorite_count]
+      end
       
       def self.url_hashtag_start(tag)
         "<a href='http://twitter.com/search?q=%23#{tag}' class='hashtag-link'>"

@@ -231,7 +231,7 @@ hashtag_tweet_attrs  = %(
 FactoryGirl.define do
 
   factory :tweet, class: Spree::Twitter::Tweet do 
-    id 542343519009275904
+    id_string 542343519009275904
     in_reply_to_screen_name nil
     in_reply_to_status_id nil
     in_reply_to_user_id nil

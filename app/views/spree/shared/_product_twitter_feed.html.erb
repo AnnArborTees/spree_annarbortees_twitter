@@ -1,22 +1,19 @@
 <div class='twitter-feed'>
 <ul>
-<% tweets.each do %>
+<% @product.tweets.each do %>
     <li class='tweet clearfix clear container'>
       <div class='avatar col-xs-3'>
         <img src="https://pbs.twimg.com/profile_images/732739000/new_logo_medium_normal.gif">
       </div>
       <div class='tweet-content col-xs-9'>
         <div class='tweet-header'>
-          <span class='name'>Ann Arbor T-shirt Company</span> <span class='nickname'>@annarbortees</span> 26m
+          <span class='name'><%= tweet.user.name %></span> <span class='nickname'>@<%= tweet.user.screen_name %></span> <!-- 26m -->
         </div>
           <p>
-            The wait is over, we finally have launched the <span class='mention'>@TinCanBros</span> merch at <span class='hashtag'>#FannArborTees</span> http://bit.ly/tcbstore  pic.twitter.com/xApALxCeLt
+            <%= format_tweet(tweet) %>
           </p>
           <div class='tweet-images text-center'>
-          <a class="photo-link  box-0" target="_blank" href="http://twitter.com/annarbortees/status/542091234027008001/photo/1" data-scribe="element:photo">
 
-          <img class="autosized-media" data-srcset="https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FB4XlGsyCEAAm0V2.png%3Alarge 865w,https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FB4XlGsyCEAAm0V2.png 600w,https%3A%2F%2Fpbs.twimg.com%2Fmedia%2FB4XlGsyCEAAm0V2.png%3Asmall 340w" data-crop-x="0" data-crop-y="23" data-image-index="0" alt="View image on Twitter" title="View image on Twitter" data-width="600" data-height="697" src="https://pbs.twimg.com/media/B4XlGsyCEAAm0V2.png" width="200" height="230">
-          </a>
           </div>
         <div class='tweet-footer text-right'>
           <i class='glyphicon glyphicon-retweet'></i> 123  <i class='glyphicon glyphicon-star'></i> 5  

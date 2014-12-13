@@ -5,5 +5,13 @@ module Spree
       :primary_key => "hashtag"
 
     has_many :tweets, through: :hashtags, class_name: 'Spree::Twitter::Tweet'
+
+    before_save :assign_hashtag
+
+    private
+
+    def assign_hashtag
+      hashtag = master.sku if hashtag.blank?
+    end
   end
 end
